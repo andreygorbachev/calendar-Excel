@@ -16,3 +16,5 @@ FetchContent_Declare(
   GIT_TAG        main
 )
 FetchContent_MakeAvailable(calendar)
+
+add_subdirectory(src)
