@@ -24,3 +24,9 @@
 
 using namespace std;
 using namespace std::chrono;
+
+
+extern "C" __declspec(dllexport) int SetAsOfDate()
+{
+	return 1;
+}
