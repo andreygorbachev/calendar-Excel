@@ -26,6 +26,11 @@ using namespace std;
 using namespace std::chrono;
 
 
+
+// Functions return 0 if successful, otherwise 1.
+
+
+
 extern "C" __declspec(dllexport) int SetAsOfDate()
 {
 	return 1;
