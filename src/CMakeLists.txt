@@ -1,6 +1,6 @@
 # project "calendar-Excel"
 
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
   dll.cpp
 )
 
