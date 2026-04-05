@@ -39,5 +39,6 @@ inline auto ToInt(const std::size_t i) -> int
 
 inline auto ToInt(const bool b) noexcept -> int
 {
+    static_assert(sizeof(int) > sizeof(bool));
     return static_cast<int>(b);
 }
