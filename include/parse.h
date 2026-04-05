@@ -23,17 +23,15 @@
 #pragma once
 
 #include <chrono>
-#include <string>
-#include <string_view>
 #include <sstream>
 #include <stdexcept>
 #include <limits>
 
 
 
-inline auto ToYearMonthDay(const std::string_view date) -> std::chrono::year_month_day
+inline auto ToYearMonthDay(const char* const date) -> std::chrono::year_month_day
 {
-    auto iss = std::istringstream{ std::string{ date } };
+    auto iss = std::istringstream{ date };
     auto sd = std::chrono::sys_days{};
     std::chrono::from_stream(iss, "%F", sd); // "%F" == "%Y-%m-%d"
     if (iss.fail())
