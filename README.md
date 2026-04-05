@@ -1,6 +1,6 @@
 # calendar-Excel
 
-We want to use calendar library from Excel.
+We want to access the calendar library from Excel.
 
 
 
