@@ -27,7 +27,7 @@ using namespace std::chrono;
 
 
 
-// Dates are passed in as strings in ISO format
+// Dates are passed in as strings in ISO 8601 format
 // Functions return 0 if successful, otherwise -1.
 
 
