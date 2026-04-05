@@ -28,9 +28,8 @@
 // Single-threaded usage assumed (no locks).
 
 inline std::chrono::year_month_day g_as_of_date = [](){
-    using namespace std::chrono;
-    auto today = floor<days>(system_clock::now());
-    return year_month_day{sys_days{today}};
+    const auto today = std::chrono::floor<std::chrono::days>(std::chrono::system_clock::now());
+    return std::chrono::year_month_day{ std::chrono::sys_days{ today } };
 }();
 
 inline std::chrono::year_month_day GetAsOfDate() noexcept
