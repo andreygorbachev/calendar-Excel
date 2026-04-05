@@ -27,11 +27,12 @@ using namespace std::chrono;
 
 
 
+// Dates are passed in as strings in ISO format
 // Functions return 0 if successful, otherwise -1.
 
 
 
-extern "C" __declspec(dllexport) int SetAsOfDate()
+extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
 {
 	return -1;
 }
