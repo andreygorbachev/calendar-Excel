@@ -24,15 +24,15 @@
 #include "as_of_date.h"
 #include "error_codes.h"
 
-#include <calendar.h>
+#include <static_data.h>
 
-using namespace std;
-using namespace std::chrono;
+using namespace gregorian::static_data;
 
 
 
 // Dates are passed in as strings in ISO 8601 format
 // Functions return 0 if successful, otherwise -1.
+// Output is via the last parameter (e.g. result) passed by pointer.
 
 
 
@@ -41,6 +41,24 @@ extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
 	try
 	{
 		SetAsOfDate(ToYearMonthDay(date));
+	}
+	catch (...)
+	{
+		return Failure;
+	}
+
+	return Success;
+}
+
+
+extern "C" __declspec(dllexport) int IsBusinessDay(const char* date, const char* calendar, int* result) // or how should we handle bool return otherwise?
+{
+	try
+	{
+		const auto d = ToYearMonthDay(date);
+		const auto& cal = locate_calendar(calendar, GetAsOfDate());
+
+		*result = static_cast<int>(cal.is_business_day(d));
 	}
 	catch (...)
 	{
