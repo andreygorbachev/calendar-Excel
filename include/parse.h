@@ -33,11 +33,17 @@ inline auto ToYearMonthDay(const char* const date) -> std::chrono::year_month_da
 {
     auto iss = std::istringstream{ date };
     auto sd = std::chrono::sys_days{};
-    std::chrono::from_stream(iss, "%F", sd); // "%F" == "%Y-%m-%d"
+    std::chrono::from_stream(iss, "%F", sd);
     if (iss.fail())
-        throw std::invalid_argument{ "invalid date format" }; // do we also need to check that we consumed all of the input?
+        throw std::invalid_argument{ "invalid date format" };
+	if (!iss.eof())
+        throw std::invalid_argument{ "invalid date format" };
 
-    return sd;
+	const auto ymd = std::chrono::year_month_day{ sd };
+    if (!ymd.ok())
+        throw std::invalid_argument{ "invalid date format" };
+
+    return ymd;
 }
 
 
