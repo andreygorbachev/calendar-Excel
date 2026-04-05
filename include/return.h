@@ -22,25 +22,22 @@
 
 #pragma once
 
-#include <chrono>
-#include <sstream>
 #include <stdexcept>
+#include <limits>
 
 
 
-inline auto ToYearMonthDay(const char* const date) -> std::chrono::year_month_day
+inline auto ToInt(const std::size_t i) -> int
 {
-    auto iss = std::istringstream{ date };
-    auto sd = std::chrono::sys_days{};
-    std::chrono::from_stream(iss, "%F", sd);
-    if (iss.fail())
-        throw std::invalid_argument{ "invalid date format" };
-	if (!iss.eof())
-        throw std::invalid_argument{ "invalid date format" };
+	// static assert that int actually fits in size_t?
+    if (i > static_cast<std::size_t>(std::numeric_limits<int>::max()))
+        throw std::out_of_range{ "value too large for int" };
 
-	const auto ymd = std::chrono::year_month_day{ sd };
-    if (!ymd.ok())
-        throw std::invalid_argument{ "invalid date format" };
+    return static_cast<int>(i);
+}
 
-    return ymd;
+
+inline auto ToInt(const bool b) noexcept -> int
+{
+    return static_cast<int>(b);
 }

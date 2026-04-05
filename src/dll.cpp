@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 #include "parse.h"
+#include "return.h"
 #include "as_of_date.h"
 #include "error_codes.h"
 
