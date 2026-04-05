@@ -29,7 +29,7 @@
 
 inline auto ToInt(const std::size_t i) -> int
 {
-	// static assert that int actually fits in size_t?
+    static_assert(sizeof(std::size_t) > sizeof(int));
     if (i > static_cast<std::size_t>(std::numeric_limits<int>::max()))
         throw std::out_of_range{ "value too large for int" };
 
