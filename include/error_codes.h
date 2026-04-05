@@ -20,21 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "error_codes.h"
-
-#include <calendar.h>
-
-using namespace std;
-using namespace std::chrono;
+#pragma once
 
 
-
-// Dates are passed in as strings in ISO 8601 format
-// Functions return 0 if successful, otherwise -1.
-
-
-
-extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
-{
-	return Success;
-}
+enum ErrorCodes : int {
+	Success = 0,
+	Failure = -1
+};
