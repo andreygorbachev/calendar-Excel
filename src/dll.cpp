@@ -24,8 +24,11 @@
 #include "as_of_date.h"
 #include "error_codes.h"
 
+#include <period.h>
+
 #include <static_data.h>
 
+using namespace gregorian::util;
 using namespace gregorian::static_data;
 
 
@@ -36,7 +39,7 @@ using namespace gregorian::static_data;
 
 
 
-extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
+extern "C" __declspec(dllexport) int SetAsOfDate(const char* date) noexcept
 {
 	try
 	{
@@ -51,7 +54,11 @@ extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
 }
 
 
-extern "C" __declspec(dllexport) int IsBusinessDay(const char* date, const char* calendar, int* result) // or how should we handle bool return otherwise?
+extern "C" __declspec(dllexport) int IsBusinessDay(
+	const char* date,
+	const char* calendar,
+	int* result
+) noexcept // or how should we handle bool return otherwise?
 {
 	try
 	{
@@ -59,6 +66,29 @@ extern "C" __declspec(dllexport) int IsBusinessDay(const char* date, const char*
 		const auto& cal = locate_calendar(calendar, GetAsOfDate());
 
 		*result = static_cast<int>(cal.is_business_day(d));
+	}
+	catch (...)
+	{
+		return Failure;
+	}
+
+	return Success;
+}
+
+
+extern "C" __declspec(dllexport) int CountBusinessDays(
+	const char* from,
+	const char* until,
+	const char* calendar,
+	int* result
+) noexcept // or how should we handle size_t return otherwise?
+{
+	try
+	{
+		const auto period = days_period{ ToYearMonthDay(from), ToYearMonthDay(until) };
+		const auto& cal = locate_calendar(calendar, GetAsOfDate());
+
+		*result = static_cast<int>(cal.count_business_days(period));
 	}
 	catch (...)
 	{
