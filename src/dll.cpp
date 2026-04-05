@@ -58,14 +58,14 @@ extern "C" __declspec(dllexport) int IsBusinessDay(
 	const char* date,
 	const char* calendar,
 	int* result
-) noexcept // or how should we handle bool return otherwise?
+) noexcept
 {
 	try
 	{
 		const auto dt = ToYearMonthDay(date);
 		const auto& cal = locate_calendar(calendar, GetAsOfDate());
 
-		*result = static_cast<int>(cal.is_business_day(dt));
+		*result = ToInt(cal.is_business_day(dt)); // we assume that bool is not a good idea in DLL
 	}
 	catch (...)
 	{
@@ -81,14 +81,14 @@ extern "C" __declspec(dllexport) int CountBusinessDays(
 	const char* until,
 	const char* calendar,
 	int* result
-) noexcept // or how should we handle size_t return otherwise?
+) noexcept
 {
 	try
 	{
 		const auto period = days_period{ ToYearMonthDay(from), ToYearMonthDay(until) };
 		const auto& cal = locate_calendar(calendar, GetAsOfDate());
 
-		*result = static_cast<int>(cal.count_business_days(period));
+		*result = ToInt(cal.count_business_days(period)); // we assume that unsigned is not a good idea in DLL
 	}
 	catch (...)
 	{

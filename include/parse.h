@@ -27,10 +27,11 @@
 #include <string_view>
 #include <sstream>
 #include <stdexcept>
+#include <limits>
 
 
 
-inline auto ToYearMonthDay(std::string_view date) -> std::chrono::year_month_day
+inline auto ToYearMonthDay(const std::string_view date) -> std::chrono::year_month_day
 {
     auto iss = std::istringstream{ std::string{ date } };
     auto sd = std::chrono::sys_days{};
@@ -39,4 +40,20 @@ inline auto ToYearMonthDay(std::string_view date) -> std::chrono::year_month_day
         throw std::invalid_argument{ "invalid date format" }; // do we also need to check that we consumed all of the input?
 
     return sd;
+}
+
+
+inline auto ToInt(const std::size_t i) -> int
+{
+	// static assert that int actually fits in size_t?
+    if (i > static_cast<std::size_t>(std::numeric_limits<int>::max()))
+        throw std::out_of_range{ "value too large for int" };
+
+    return static_cast<int>(i);
+}
+
+
+inline auto ToInt(const bool b) noexcept -> int
+{
+    return static_cast<int>(b);
 }
