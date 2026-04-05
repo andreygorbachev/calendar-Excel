@@ -20,31 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "parse.h"
-#include "error_codes.h"
+#pragma once
 
-#include <calendar.h>
-
-using namespace std;
-using namespace std::chrono;
-
-
-
-// Dates are passed in as strings in ISO 8601 format
-// Functions return 0 if successful, otherwise -1.
+#include <chrono>
+#include <string>
+#include <string_view>
+#include <sstream>
+#include <stdexcept>
 
 
 
-extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
+inline auto ToYearMonthDay(std::string_view date) -> std::chrono::year_month_day
 {
-	try
-	{
-		const auto d = ToYearMonthDay(date);
-	}
-	catch (...)
-	{
-		return Failure;
-	}
+    auto iss = std::istringstream{ std::string{ date } };
+    auto sd = std::chrono::sys_days{};
+    std::chrono::from_stream(iss, "%F", sd); // "%F" == "%Y-%m-%d"
+    if (iss.fail())
+        throw std::invalid_argument{ "invalid date format" }; // do we also need to check that we consumed all of the input?
 
-	return Success;
+    return sd;
 }
