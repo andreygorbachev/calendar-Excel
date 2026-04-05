@@ -62,10 +62,10 @@ extern "C" __declspec(dllexport) int IsBusinessDay(
 {
 	try
 	{
-		const auto d = ToYearMonthDay(date);
+		const auto dt = ToYearMonthDay(date);
 		const auto& cal = locate_calendar(calendar, GetAsOfDate());
 
-		*result = static_cast<int>(cal.is_business_day(d));
+		*result = static_cast<int>(cal.is_business_day(dt));
 	}
 	catch (...)
 	{
