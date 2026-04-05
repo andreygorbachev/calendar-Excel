@@ -20,32 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "parse.h"
-#include "as_of_date.h"
-#include "error_codes.h"
+#pragma once
 
-#include <calendar.h>
+#include <chrono>
 
-using namespace std;
-using namespace std::chrono;
+// Process-wide "as of" date initialized to today's date.
+// Single-threaded usage assumed (no locks).
 
+inline std::chrono::year_month_day g_as_of_date = [](){
+    using namespace std::chrono;
+    auto today = floor<days>(system_clock::now());
+    return year_month_day{sys_days{today}};
+}();
 
-
-// Dates are passed in as strings in ISO 8601 format
-// Functions return 0 if successful, otherwise -1.
-
-
-
-extern "C" __declspec(dllexport) int SetAsOfDate(const char* date)
+inline std::chrono::year_month_day GetAsOfDate() noexcept
 {
-	try
-	{
-		SetAsOfDate(ToYearMonthDay(date));
-	}
-	catch (...)
-	{
-		return Failure;
-	}
+    return g_as_of_date;
+}
 
-	return Success;
+inline void SetAsOfDate(std::chrono::year_month_day d) noexcept
+{
+    g_as_of_date = d;
 }
