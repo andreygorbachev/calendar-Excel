@@ -1,4 +1,5 @@
 # project "calendar-Excel"
+# should the DLL have a more generic name? (as it is not Excel specific, but rather a general purpose calendar library with an Excel VBA wrapper)
 
 add_library(${PROJECT_NAME} SHARED
   dll.cpp
