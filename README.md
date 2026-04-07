@@ -9,4 +9,4 @@ The following functions are currently implemented:
 2) CalendarIsBusinessDay
 3) CalendarCountBusinessDays
 
-(which are holefully self explanatory)
+(which are hopefully self explanatory)
