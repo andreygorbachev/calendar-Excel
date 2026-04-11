@@ -22,4 +22,4 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   calendar_static-data
 )
 
-# add untt tests
+# add unit tests
