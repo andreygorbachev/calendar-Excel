@@ -17,4 +17,19 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(calendar)
 
+include(FetchContent)
+
+set(BUILD_GMOCK Off) # I am not sure if this meant to be used outside of googletest
+
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        v1.17.0
+)
+
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
 add_subdirectory(src)
+add_subdirectory(test)

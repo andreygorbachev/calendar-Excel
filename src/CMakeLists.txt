@@ -11,6 +11,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 # to make IDE to show this file as part of the project
 target_sources(${PROJECT_NAME} PRIVATE
+  ../include/dll.h
   ../include/error_codes.h # should target_include_directories take care of a path here?
   ../include/parse.h
   ../include/return.h
@@ -21,5 +22,3 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   calendar
   calendar_static-data
 )
-
-# add unit tests
