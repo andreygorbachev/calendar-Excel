@@ -1,6 +1,7 @@
 project("${PROJECT_NAME}_test" LANGUAGES CXX)
 
 add_executable(${PROJECT_NAME}
+  as_of_date.cpp
   parse.cpp
   return.cpp
   dll.cpp
