@@ -22,6 +22,8 @@
 
 #pragma once
 
+// only for unit tests at the moment
+
 
 
 extern "C" __declspec(dllexport) int SetAsOfDate(const char* date) noexcept;

@@ -25,8 +25,9 @@
 
 #include <gtest/gtest.h>
 
-using namespace std;
 
+
+// not sure how to test SetAsOfDate
 
 TEST(dll, IsBusinessDay)
 {
