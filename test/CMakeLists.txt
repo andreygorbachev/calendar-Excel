@@ -2,6 +2,7 @@ project("${PROJECT_NAME}_test" LANGUAGES CXX)
 
 add_executable(${PROJECT_NAME}
   parse.cpp
+  return.cpp
   dll.cpp
 )
 
