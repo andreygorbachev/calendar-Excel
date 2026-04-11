@@ -45,3 +45,20 @@ TEST(dll, IsBusinessDay)
 	EXPECT_EQ(Success, IsBusinessDay("2023-02-30", "Europe/London", &result)); // not .ok()
 	EXPECT_TRUE(static_cast<bool>(result));
 }
+
+
+TEST(dll, CountBusinessDays)
+{
+	auto result = int{};
+
+	EXPECT_EQ(Success, CountBusinessDays("2023-05-01", "2023-05-01", "Europe/London", &result));
+	EXPECT_EQ(0, result);
+
+	EXPECT_EQ(Success, CountBusinessDays("2023-05-31", "2023-05-31", "Europe/London", &result));
+	EXPECT_EQ(1, result);
+
+	EXPECT_EQ(Success, CountBusinessDays("2023-04-28", "2023-05-31", "Europe/London", &result));
+	EXPECT_EQ(21, result);
+
+	EXPECT_EQ(Failure, CountBusinessDays("2023-05-31", "2023-04-28", "Europe/London", &result));
+}
