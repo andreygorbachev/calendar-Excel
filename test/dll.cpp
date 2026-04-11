@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 #include <dll.h>
+#include <error_codes.h>
 
 #include <gtest/gtest.h>
 
@@ -29,4 +30,18 @@ using namespace std;
 
 TEST(dll, IsBusinessDay)
 {
+	auto result = int{};
+
+	EXPECT_EQ(Success, IsBusinessDay("2023-05-01", "Europe/London",	&result));
+	EXPECT_FALSE(static_cast<bool>(result));
+
+	EXPECT_EQ(Success, IsBusinessDay("2023-05-02", "Europe/London", &result));
+	EXPECT_TRUE(static_cast<bool>(result));
+
+	EXPECT_EQ(Failure, IsBusinessDay("0001-05-01", "Europe/London", &result));
+
+	EXPECT_EQ(Failure, IsBusinessDay("9999-05-01", "Europe/London", &result));
+
+	EXPECT_EQ(Success, IsBusinessDay("2023-02-30", "Europe/London", &result)); // not .ok()
+	EXPECT_TRUE(static_cast<bool>(result));
 }
